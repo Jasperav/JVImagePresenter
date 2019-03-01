@@ -36,7 +36,7 @@ public class ImageZoomAnimator: NSObject, UIViewControllerAnimatedTransitioning 
                        delay: 0,
                        usingSpringWithDamping: 0.8,
                        initialSpringVelocity: 0,
-                       options: [UIViewAnimationOptions.transitionCrossDissolve],
+                       options: [UIView.AnimationOptions.transitionCrossDissolve],
                        animations: {
                         self.transitionImageView.frame = finalTransitionSize
                         toVC.view.alpha = 1.0
