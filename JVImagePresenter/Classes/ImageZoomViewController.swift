@@ -19,7 +19,7 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
     private var panGestureRecognizer: UIPanGestureRecognizer!
     private var singleTapGestureRecognizer: UITapGestureRecognizer!
     
-    init(image: UIImage, originalImageIsRounded: Bool, presenter: ImageZoomAnimatorDelegate & UIViewController) {
+    public init(image: UIImage, originalImageIsRounded: Bool, presenter: ImageZoomAnimatorDelegate & UIViewController) {
         imageView = ImageViewConstraints(image: image)
         transitionController = ImageZoomTransitionController(originalImageIsRounded: originalImageIsRounded)
         
