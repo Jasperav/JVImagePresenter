@@ -1,0 +1,6 @@
+use_frameworks!
+target 'JVImagePresenter_Tests' do
+  pod 'JVImagePresenter', :path => '../'
+  
+  
+end
