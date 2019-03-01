@@ -1,0 +1,6 @@
+framework module JVContentType {
+  umbrella header "JVContentType-umbrella.h"
+
+  export *
+  module * { export * }
+}

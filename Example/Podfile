@@ -1,6 +1,12 @@
+source 'https://Jasperav@bitbucket.org/Jasperav/specs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, ’11.0’
+
 use_frameworks!
 target 'JVImagePresenter_Tests' do
   pod 'JVImagePresenter', :path => '../'
   
+  pod 'JVConstraintEdges'
   
 end

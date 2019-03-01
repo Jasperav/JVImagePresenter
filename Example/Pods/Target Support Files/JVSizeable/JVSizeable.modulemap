@@ -1,0 +1,6 @@
+framework module JVSizeable {
+  umbrella header "JVSizeable-umbrella.h"
+
+  export *
+  module * { export * }
+}
