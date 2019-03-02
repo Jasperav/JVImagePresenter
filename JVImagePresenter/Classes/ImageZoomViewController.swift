@@ -199,7 +199,6 @@ public extension ImageZoomViewController {
     }
     
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        print(scale)
         if scale > correctedZoomScale + 0.01 {
             change(mode: .focus)
             

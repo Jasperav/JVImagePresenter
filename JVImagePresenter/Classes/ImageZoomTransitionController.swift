@@ -72,11 +72,9 @@ extension ImageZoomTransitionController: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         guard isInteractive else {
-            print("returning nil")
             return nil
         }
         
-        print("returning animator")
         interactionController.animator = animator
         
         return interactionController
