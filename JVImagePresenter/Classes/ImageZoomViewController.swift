@@ -2,17 +2,11 @@ import UIKit
 import JVConstraintEdges
 
 open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate, ImageZoomAnimatorDelegate {
-    private enum Mode {
-        case focus, unfocused
-        
-        static let transitionDuration: TimeInterval = 0.25
-    }
     
-    private let transitionController: ImageZoomTransitionController
     var firstTimeLoaded = true
+    private let transitionController: ImageZoomTransitionController
     private var didSetupContraint = false
     private var correctedZoomScale: CGFloat = 1.0
-    private var mode = Mode.unfocused
     private let scrollView = UIScrollView()
     private let imageView: ImageViewConstraints
     private var doubleTapGestureRecognizer: UITapGestureRecognizer!
@@ -73,12 +67,7 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
     }
     
     @objc func didSingleTapWith(gestureRecognizer: UITapGestureRecognizer) {
-        switch mode {
-        case .focus:
-            change(mode: .unfocused)
-        case .unfocused:
-            change(mode: .focus)
-        }
+        // TODO for later
     }
     
     @objc func didPanWith(gestureRecognizer: UIPanGestureRecognizer) {
@@ -94,30 +83,6 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
     
     public required init?(coder aDecoder: NSCoder) {
         fatalError()
-    }
-    
-    private func change(mode: Mode) {
-        guard self.mode != mode else { return }
-        
-        self.mode = mode
-        
-        let hidden: Bool
-        let backgroundColor: UIColor
-        
-        switch mode {
-        case .focus:
-            hidden = true
-            backgroundColor = .black
-        case .unfocused:
-            hidden = false
-            backgroundColor = .white
-        }
-        
-        navigationController!.setNavigationBarHidden(hidden, animated: true)
-        
-        UIView.animate(withDuration: Mode.transitionDuration, animations: {
-            self.view.backgroundColor = backgroundColor
-        })
     }
     
     open override func viewDidLayoutSubviews() {
@@ -190,22 +155,6 @@ public extension ImageZoomViewController {
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         updateConstraintsForSize(view.bounds.size)
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.zoomScale != scrollView.minimumZoomScale {
-            change(mode: .focus)
-        }
-    }
-    
-    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        if scale > correctedZoomScale + 0.01 {
-            change(mode: .focus)
-            
-            return
-        }
-        
-        change(mode: .unfocused)
     }
 }
 
