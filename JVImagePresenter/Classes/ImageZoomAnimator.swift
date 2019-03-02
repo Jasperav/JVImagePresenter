@@ -1,3 +1,5 @@
+import UIKit
+
 public class ImageZoomAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     // TODO: Change to unowned var when swift 5.0 is supported.
     weak var fromDelegate: ImageZoomAnimatorDelegate!
@@ -31,6 +33,32 @@ public class ImageZoomAnimator: NSObject, UIViewControllerAnimatedTransitioning 
         change(transitionImage: referenceImage, frame: fromReferenceImageViewFrame)
         
         containerView.addSubview(transitionImageView)
+        
+        // TEST CODE BEGIN
+//        self.transitionImageView.frame = finalTransitionSize
+//        toReferenceImageView.isHidden = false
+//        UIView.animate(withDuration: transitionDuration(using: transitionContext),
+//                       delay: 0,
+//                       usingSpringWithDamping: 0.8,
+//                       initialSpringVelocity: 0,
+//                       options: [UIView.AnimationOptions.transitionCrossDissolve],
+//                       animations: {
+//
+//                        toVC.view.alpha = 1.0
+//                        fromVC.tabBarController?.tabBar.alpha = 0
+//        }, completion: { _ in
+//            //self.transitionImageView.removeFromSuperview()
+//
+////            fromReferenceImageView.isHidden = false
+////
+////            self.transitionImageView = nil
+//
+//            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+//        })
+        // TEST CODE END
+        
+        
+        // ORIGINAL CODE
     
         UIView.animate(withDuration: transitionDuration(using: transitionContext),
                        delay: 0,
@@ -45,9 +73,9 @@ public class ImageZoomAnimator: NSObject, UIViewControllerAnimatedTransitioning 
             self.transitionImageView.removeFromSuperview()
             toReferenceImageView.isHidden = false
             fromReferenceImageView.isHidden = false
-            
+
             self.transitionImageView = nil
-            
+
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         })
     }
@@ -71,13 +99,19 @@ public class ImageZoomAnimator: NSObject, UIViewControllerAnimatedTransitioning 
         containerView.addSubview(transitionImageView)
         containerView.insertSubview(toVC.view, belowSubview: fromVC.view)
         
+        let frame = toReferenceImageViewFrame ?? .zero
+        
         UIView.animate(withDuration: transitionDuration(using: transitionContext),
                        delay: 0,
                        options: [],
                        animations: {
                         fromVC.view.alpha = 0
-                        self.transitionImageView?.frame = toReferenceImageViewFrame ?? .zero
+                        self.transitionImageView?.frame = frame
                         toVC.tabBarController?.tabBar.alpha = 1
+                        
+                        if self.originalImageIsRounded {
+                            self.transitionImageView.layer.cornerRadius = frame.height / 2
+                        }
         }, completion: { _ in
             self.transitionImageView?.removeFromSuperview()
             

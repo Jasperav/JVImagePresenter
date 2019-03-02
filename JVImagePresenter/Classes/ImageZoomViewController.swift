@@ -10,7 +10,7 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
     
     private let transitionController: ImageZoomTransitionController
     var firstTimeLoaded = true
-    
+    private var didSetupContraint = false
     private var correctedZoomScale: CGFloat = 1.0
     private var mode = Mode.unfocused
     private let scrollView = UIScrollView()
@@ -60,10 +60,6 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         scrollView.contentInsetAdjustmentBehavior = .never
         
         imageView.setContentHugging(251)
-        
-        //Update the constraints to prevent the constraints from
-        //being calculated incorrectly on certain iOS devices
-        updateConstraintsForSize(view.frame.size)
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -160,23 +156,28 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         if firstTimeLoaded {
             scrollView.zoomScale = correctedZoomScale
             firstTimeLoaded = false
+
         }
         
         scrollView.maximumZoomScale = correctedZoomScale * 4
     }
     
     private func updateConstraintsForSize(_ size: CGSize) {
+        guard !didSetupContraint else { return }
+        
+        didSetupContraint = true
+        
         let yOffset = max(0, (size.height - imageView.frame.height) / 2)
         let contentHeight = yOffset * 2 + imageView.frame.height
         let xOffset = max(0, (size.width - imageView.frame.width) / 2)
-        
+
         imageView.topConstraint.constant = yOffset
         imageView.bottomConstraint.constant = yOffset
         imageView.leadingConstraint.constant = xOffset
         imageView.trailingConstraint.constant = xOffset
-        
+
         view.layoutIfNeeded()
-        
+
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width,
                                         height: contentHeight)
     }
@@ -215,6 +216,10 @@ public extension ImageZoomViewController {
     }
     
     func referenceImageViewFrameInTransitioningView(for zoomAnimator: ImageZoomAnimator) -> CGRect? {
-        return scrollView.convert(imageView.frame, to: view)
+        var rect = scrollView.convert(imageView.frame, to: view)
+        
+        rect.origin.y += view.frame.origin.y
+        
+        return rect
     }
 }

@@ -12,6 +12,9 @@ class ImageZoomDismissalInteractionController: NSObject {
         let toReferenceImageViewFrame = animator.toDelegate.referenceImageViewFrameInTransitioningView(for: animator) ?? .zero
         let toReferenceImageView = animator.toDelegate.referenceImageView(for: animator)
         let fromReferenceImageView = animator.fromDelegate.referenceImageView(for: animator)!
+        guard transitionContext != nil else {
+            return // Is nil when the user pans fast.
+        }
         let fromVC = transitionContext.viewController(forKey: .from)!
         let toVC = transitionContext.viewController(forKey: .to)!
         let transitionImageView = animator.transitionImageView!
@@ -23,6 +26,14 @@ class ImageZoomDismissalInteractionController: NSObject {
         let newCenter = CGPoint(x: anchorPoint.x + translatedPoint.x, y: anchorPoint.y + translatedPoint.y - transitionImageView.frame.height * (1 - scale) / 2.0)
         
         fromVC.view.alpha = backgroundAlpha
+        
+        if self.animator.originalImageIsRounded {
+            let percentScrolled = abs(backgroundAlpha - 1)
+            let fullRoundRadius = toReferenceImageViewFrame.height / 2
+            let correctedRadius = fullRoundRadius * percentScrolled
+            
+            transitionImageView.layer.cornerRadius = correctedRadius
+        }
         
         toVC.tabBarController?.tabBar.alpha = 1 - backgroundAlpha
         

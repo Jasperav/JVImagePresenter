@@ -1,4 +1,5 @@
 import JVConstraintEdges
+import UIKit
 
 class ImageViewConstraints: UIImageView {
     
