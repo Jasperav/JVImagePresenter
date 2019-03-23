@@ -20,8 +20,6 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         
         super.init(nibName: nil, bundle: nil)
         
-        assert(presenter.navigationController!.delegate == nil)
-        
         presenter.navigationController!.delegate = transitionController
         transitionController.fromDelegate = presenter
         transitionController.toDelegate = self
