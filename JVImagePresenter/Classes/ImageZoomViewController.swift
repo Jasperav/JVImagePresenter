@@ -44,10 +44,7 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         singleTapGestureRecognizer.require(toFail: doubleTapGestureRecognizer)
         
         scrollView.delegate = self
-        imageView.frame = CGRect(x: imageView.frame.origin.x,
-                                 y: imageView.frame.origin.y,
-                                 width: image.size.width,
-                                 height: image.size.height)
+        adjustImageViewSizeToImage()
         view.addGestureRecognizer(doubleTapGestureRecognizer)
         
         scrollView.contentInsetAdjustmentBehavior = .never
@@ -108,7 +105,14 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         scrollView.zoom(to: rectToZoomTo, animated: true)
     }
     
-    private func updateZoomScaleForSize(_ size: CGSize) {
+    public func adjustImageViewSizeToImage() {
+        imageView.frame = CGRect(x: imageView.frame.origin.x,
+                                 y: imageView.frame.origin.y,
+                                 width: image.size.width,
+                                 height: image.size.height)
+    }
+    
+    public func updateZoomScaleForSize(_ size: CGSize) {
         let widthScale = size.width / imageView.bounds.width
         let heightScale = size.height / imageView.bounds.height
         correctedZoomScale = min(widthScale, heightScale)
@@ -120,7 +124,7 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         if firstTimeLoaded {
             scrollView.zoomScale = correctedZoomScale
             firstTimeLoaded = false
-
+            
         }
         
         scrollView.maximumZoomScale = correctedZoomScale * 4
@@ -134,14 +138,14 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         let yOffset = max(0, (size.height - imageView.frame.height) / 2)
         let contentHeight = yOffset * 2 + imageView.frame.height
         let xOffset = max(0, (size.width - imageView.frame.width) / 2)
-
+        
         imageView.topConstraint.constant = yOffset
         imageView.bottomConstraint.constant = yOffset
         imageView.leadingConstraint.constant = xOffset
         imageView.trailingConstraint.constant = xOffset
-
+        
         view.layoutIfNeeded()
-
+        
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width,
                                         height: contentHeight)
     }
