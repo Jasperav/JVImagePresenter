@@ -44,7 +44,7 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         singleTapGestureRecognizer.require(toFail: doubleTapGestureRecognizer)
         
         scrollView.delegate = self
-        adjustImageViewSizeToImage()
+        adjustImageViewSize(toImage: image)
         view.addGestureRecognizer(doubleTapGestureRecognizer)
         
         scrollView.contentInsetAdjustmentBehavior = .never
@@ -105,7 +105,7 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         scrollView.zoom(to: rectToZoomTo, animated: true)
     }
     
-    public func adjustImageViewSizeToImage() {
+    public func adjustImageViewSize(toImage image: UIImage) {
         imageView.frame = CGRect(x: imageView.frame.origin.x,
                                  y: imageView.frame.origin.y,
                                  width: image.size.width,
