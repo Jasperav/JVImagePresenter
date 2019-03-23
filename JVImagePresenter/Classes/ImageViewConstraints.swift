@@ -1,7 +1,7 @@
 import JVConstraintEdges
 import UIKit
 
-class ImageViewConstraints: UIImageView {
+public class ImageViewConstraints: UIImageView {
     
     private (set) var topConstraint: NSLayoutConstraint!
     private (set) var bottomConstraint: NSLayoutConstraint!

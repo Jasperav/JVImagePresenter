@@ -3,12 +3,13 @@ import JVConstraintEdges
 
 open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate, ImageZoomAnimatorDelegate {
     
-    var firstTimeLoaded = true
+    public let imageView: ImageViewConstraints
+    
+    private var firstTimeLoaded = true
     private let transitionController: ImageZoomTransitionController
     private var didSetupContraint = false
     private var correctedZoomScale: CGFloat = 1.0
     private let scrollView = UIScrollView()
-    private let imageView: ImageViewConstraints
     private var doubleTapGestureRecognizer: UITapGestureRecognizer!
     private var panGestureRecognizer: UIPanGestureRecognizer!
     private var singleTapGestureRecognizer: UITapGestureRecognizer!
