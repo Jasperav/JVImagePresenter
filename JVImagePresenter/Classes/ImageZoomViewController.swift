@@ -52,7 +52,7 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         imageView.setContentHugging(251)
     }
     
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if otherGestureRecognizer == scrollView.panGestureRecognizer {
             if scrollView.contentOffset.y == 0 {
                 return true
@@ -62,11 +62,11 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         return false
     }
     
-    @objc func didSingleTapWith(gestureRecognizer: UITapGestureRecognizer) {
+    @objc private func didSingleTapWith(gestureRecognizer: UITapGestureRecognizer) {
         // TODO for later
     }
     
-    @objc func didPanWith(gestureRecognizer: UIPanGestureRecognizer) {
+    @objc private func didPanWith(gestureRecognizer: UIPanGestureRecognizer) {
         switch gestureRecognizer.state {
         case .began:
             scrollView.isScrollEnabled = false
@@ -87,7 +87,7 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         updateZoomScaleForSize(view.bounds.size)
     }
     
-    @objc func didDoubleTapWith(gestureRecognizer: UITapGestureRecognizer) {
+    @objc private func didDoubleTapWith(gestureRecognizer: UITapGestureRecognizer) {
         let pointInView = gestureRecognizer.location(in: imageView)
         var newZoomScale = scrollView.maximumZoomScale
         
@@ -105,14 +105,14 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         scrollView.zoom(to: rectToZoomTo, animated: true)
     }
     
-    public func adjustImageViewSize(toImage image: UIImage) {
+    private func adjustImageViewSize(toImage image: UIImage) {
         imageView.frame = CGRect(x: imageView.frame.origin.x,
                                  y: imageView.frame.origin.y,
                                  width: image.size.width,
                                  height: image.size.height)
     }
     
-    public func updateZoomScaleForSize(_ size: CGSize) {
+    private func updateZoomScaleForSize(_ size: CGSize) {
         let widthScale = size.width / imageView.bounds.width
         let heightScale = size.height / imageView.bounds.height
         correctedZoomScale = min(widthScale, heightScale)
