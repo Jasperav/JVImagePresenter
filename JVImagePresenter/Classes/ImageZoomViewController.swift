@@ -36,7 +36,9 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         
         view.backgroundColor = .white
         
-        scrollView.maximumZoomScale = 4
+        // Very high else if a small image will be presented,
+        // it glitches
+        scrollView.maximumZoomScale = 100
         
         doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didDoubleTapWith(gestureRecognizer:)))
         doubleTapGestureRecognizer.numberOfTapsRequired = 2
