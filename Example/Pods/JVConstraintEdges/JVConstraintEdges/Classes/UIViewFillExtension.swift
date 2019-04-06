@@ -3,10 +3,6 @@ import JVDebugProcessorMacros
 
 public extension UIView {
     
-    func layout(from: (UIView) -> ()) {
-        from(self)
-    }
-
     var contentHugging: Float {
         get {
             Unsupported()

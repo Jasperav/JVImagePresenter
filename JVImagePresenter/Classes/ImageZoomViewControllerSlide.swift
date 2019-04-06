@@ -3,9 +3,9 @@ import JVConstraintEdges
 import JVLoadableImage
 
 open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate {
-
+    
     public let imageView: LoadableImage
-
+    
     private let scrollView = UIScrollView()
     private var doubleTapGestureRecognizer: UITapGestureRecognizer!
     private var panGestureRecognizer: UIPanGestureRecognizer!
@@ -13,15 +13,15 @@ open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDe
     
     public init() {
         imageView = LoadableImage(rounded: false, registerNotificationCenter: true, isUserInteractionEnabled: false, stretched: true)
-
+        
         super.init(nibName: nil, bundle: nil)
-
+        
         setupPanGesture()
         setupSingleTapGesture()
         setupDoubleTapGesture()
         setupScrollView()
         setupImageView()
-
+        
         view.backgroundColor = .white
     }
     
@@ -30,32 +30,32 @@ open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDe
     }
     
     // Bottom to top animation, currently not used. Just use the standard animation.
-//    public func present(from nv: UINavigationController) {
-//        let transition = CATransition()
-//
-//        transition.duration = 0.5
-//        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-//        transition.type = CATransitionType.moveIn
-//        transition.subtype = CATransitionSubtype.fromTop
-//
-//        nv.view.layer.add(transition, forKey: nil)
-//        nv.pushViewController(self, animated: false)
-//    }
-
+    //    public func present(from nv: UINavigationController) {
+    //        let transition = CATransition()
+    //
+    //        transition.duration = 0.5
+    //        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+    //        transition.type = CATransitionType.moveIn
+    //        transition.subtype = CATransitionSubtype.fromTop
+    //
+    //        nv.view.layer.add(transition, forKey: nil)
+    //        nv.pushViewController(self, animated: false)
+    //    }
+    
     private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if otherGestureRecognizer == scrollView.panGestureRecognizer {
             if scrollView.contentOffset.y == 0 {
                 return true
             }
         }
-
+        
         return false
     }
-
+    
     @objc private func didSingleTapWith(gestureRecognizer: UITapGestureRecognizer) {
         // TODO for later
     }
-
+    
     @objc private func didPanWith(gestureRecognizer: UIPanGestureRecognizer) {
         switch gestureRecognizer.state {
         case .began:
@@ -64,7 +64,7 @@ open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDe
             break
         }
     }
-
+    
     @objc private func didDoubleTapWith(gestureRecognizer: UITapGestureRecognizer) {
         guard !imageView.isLoading else { return } // Image is loading, do nothing
         
@@ -81,7 +81,7 @@ open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDe
         let originX = pointInView.x - (width / 2.0)
         let originY = pointInView.y - (height / 2.0)
         let rectToZoomTo = CGRect(x: originX, y: originY, width: width, height: height)
-
+        
         scrollView.zoom(to: rectToZoomTo, animated: true)
     }
     
@@ -126,13 +126,11 @@ extension ImageZoomViewControllerSlide {
     }
     
     private func setupImageView() {
-        imageView.layout {
-            $0.fillToMiddle(toSuperview: scrollView)
-            
-            $0.equal(to: scrollView, height: false, width: true)
-            $0.isSquare = true
-            
-            $0.contentMode = .scaleAspectFit
-        }
+        imageView.fillToMiddle(toSuperview: scrollView)
+        
+        imageView.equal(to: scrollView, height: false, width: true)
+        imageView.isSquare = true
+        
+        imageView.contentMode = .scaleAspectFit
     }
 }

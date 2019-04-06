@@ -1,12 +1,12 @@
 PODS:
-  - JVConstraintEdges (0.3.3):
+  - JVConstraintEdges (0.3.4):
     - JVContentType
     - JVDebugProcessorMacros
   - JVContentType (0.1.7)
   - JVDebugProcessorMacros (0.1.0)
   - JVGenericNotificationCenter (0.1.3):
     - JVJSONCodable
-  - JVImagePresenter (0.2.4):
+  - JVImagePresenter (0.2.5):
     - JVConstraintEdges
     - JVLoadableImage
   - JVJSONCodable (0.1.1)
@@ -35,11 +35,11 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  JVConstraintEdges: d8e930af6bdc8cf33a25c46bec3137de6328835f
+  JVConstraintEdges: ca1d9f78b37c6e36bddfa4c3f6f7b8a1a6d04d5f
   JVContentType: bf617302d029baefccde48eb79edc7634fd15f55
   JVDebugProcessorMacros: 5df41f5660e5d5212c1d4c96fc0caa0800d77311
   JVGenericNotificationCenter: c66ef91393be834c525b5c3723ac8c021fc8af3b
-  JVImagePresenter: adaedea757c786a9cfe9296debd4ba357aece118
+  JVImagePresenter: a17303853e31b337c6ec270a51ef1baffb21e40e
   JVJSONCodable: f7802593adaccf981224f606059016b5c7edabca
   JVLoadableImage: 7ef7521446893e4895c0b570f381d06ea7b30bab
   JVUIButtonExtensions: dd2180c283cc2fde209aeb362f6169a2e0994535
