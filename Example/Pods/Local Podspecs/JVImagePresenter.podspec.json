@@ -1,6 +1,6 @@
 {
   "name": "JVImagePresenter",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "summary": "A short description of JVImagePresenter.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/Jasperav/JVImagePresenter",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/Jasperav/JVImagePresenter.git",
-    "tag": "0.2.3"
+    "tag": "0.2.4"
   },
   "platforms": {
     "ios": "11.0"

@@ -6,11 +6,11 @@ PODS:
   - JVDebugProcessorMacros (0.1.0)
   - JVGenericNotificationCenter (0.1.3):
     - JVJSONCodable
-  - JVImagePresenter (0.2.3):
+  - JVImagePresenter (0.2.4):
     - JVConstraintEdges
     - JVLoadableImage
   - JVJSONCodable (0.1.1)
-  - JVLoadableImage (0.3.1):
+  - JVLoadableImage (0.3.2):
     - JVConstraintEdges
     - JVGenericNotificationCenter
     - JVUIButtonExtensions
@@ -39,9 +39,9 @@ SPEC CHECKSUMS:
   JVContentType: bf617302d029baefccde48eb79edc7634fd15f55
   JVDebugProcessorMacros: 5df41f5660e5d5212c1d4c96fc0caa0800d77311
   JVGenericNotificationCenter: c66ef91393be834c525b5c3723ac8c021fc8af3b
-  JVImagePresenter: 835e4a337197d762bd127a45ede3a66112525e4b
+  JVImagePresenter: adaedea757c786a9cfe9296debd4ba357aece118
   JVJSONCodable: f7802593adaccf981224f606059016b5c7edabca
-  JVLoadableImage: d6ffa3a7114288f4504056578ecab900ba1548bd
+  JVLoadableImage: 7ef7521446893e4895c0b570f381d06ea7b30bab
   JVUIButtonExtensions: dd2180c283cc2fde209aeb362f6169a2e0994535
 
 PODFILE CHECKSUM: 00577dbe18cdc97776cee3e1006d0dceb0ad37cf

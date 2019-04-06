@@ -10,6 +10,6 @@ public struct NotificationCenterImageSender: NotificationCenterSendable, Codable
     public init(photoIdentifier: Int64, photo: UIImage) {
         self.photoIdentifier = photoIdentifier
         fatalError()
-        //self.photo = photo.UIImagePNGRepresentation()!
+        //self.photo = photo.pngData()!
     }
 }

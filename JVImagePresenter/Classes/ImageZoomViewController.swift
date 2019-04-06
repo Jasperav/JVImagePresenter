@@ -54,7 +54,7 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         imageView.contentHugging = 251
     }
     
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if otherGestureRecognizer == scrollView.panGestureRecognizer {
             if scrollView.contentOffset.y == 0 {
                 return true

@@ -1,17 +1,18 @@
 import UIKit
 import JVConstraintEdges
+import JVLoadableImage
 
 open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate {
 
-    public let imageView: ImageViewConstraints
+    public let imageView: LoadableImage
 
     private let scrollView = UIScrollView()
     private var doubleTapGestureRecognizer: UITapGestureRecognizer!
     private var panGestureRecognizer: UIPanGestureRecognizer!
     private var singleTapGestureRecognizer: UITapGestureRecognizer!
     
-    public init(image: UIImage) {
-        imageView = ImageViewConstraints(image: image)
+    public init() {
+        imageView = LoadableImage(rounded: false, registerNotificationCenter: true, isUserInteractionEnabled: false, stretched: true)
 
         super.init(nibName: nil, bundle: nil)
 
@@ -22,6 +23,10 @@ open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDe
         setupImageView()
 
         view.backgroundColor = .white
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError()
     }
     
     // Bottom to top animation, currently not used. Just use the standard animation.
@@ -37,7 +42,7 @@ open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDe
 //        nv.pushViewController(self, animated: false)
 //    }
 
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if otherGestureRecognizer == scrollView.panGestureRecognizer {
             if scrollView.contentOffset.y == 0 {
                 return true
@@ -60,11 +65,9 @@ open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDe
         }
     }
 
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError()
-    }
-
     @objc private func didDoubleTapWith(gestureRecognizer: UITapGestureRecognizer) {
+        guard !imageView.isLoading else { return } // Image is loading, do nothing
+        
         guard scrollView.zoomScale == 1.0 else {
             scrollView.setZoomScale(1, animated: true)
             

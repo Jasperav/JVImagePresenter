@@ -6,7 +6,7 @@ import JVUIButtonExtensions
 /// Presents a loading view wich acts like a placeholder for an upcoming image.
 open class LoadableImage: UIView, NotificationCenterObserver {
     
-    public enum CurrentState {
+    public enum State {
         case loading, presenting(UIImage)
         
         var isLoading: Bool {
@@ -29,14 +29,14 @@ open class LoadableImage: UIView, NotificationCenterObserver {
     public private (set) var imageView: UIImageView!
     
     public var isLoading: Bool {
-        return currentState.isLoading
+        return state.isLoading
     }
     
     public var image: UIImage? {
-        return currentState.image
+        return state.image
     }
     
-    public private (set) var currentState = CurrentState.loading
+    public private (set) var state = State.loading
     
     public var selectorExecutor: NotificationCenterSelectorExecutor!
     
@@ -53,59 +53,32 @@ open class LoadableImage: UIView, NotificationCenterObserver {
                 rounded: Bool,
                 registerNotificationCenter: Bool = true,
                 tapped: (() -> ())? = nil,
-                isUserInteractionEnabled: Bool = true) {
-        indicator = UIActivityIndicatorView(style: style)
+                isUserInteractionEnabled: Bool = true,
+                stretched: Bool = false) {
+        fatalError()
+        //indicator = UIActivityIndicatorView(style: style)
         self.rounded = rounded
         self.imageButton.clipsToBounds = rounded
         self.tapped = tapped
         
         super.init(frame: .zero)
         
-        imageView = imageButton.imageView!
-        
         assert(tapped != nil ? isUserInteractionEnabled : true)
+        
+        setupImage(isUserInteractionEnabled: isUserInteractionEnabled)
+        setupIndicator()
         
         if registerNotificationCenter {
             register()
         }
         
-        addImage(isUserInteractionEnabled: isUserInteractionEnabled)
-        addIndicator()
+        if stretched {
+            imageButton.stretchImage()
+        }
     }
     
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    /// Will show an image with an indicator to indicate a higher resolution photo is being downloaded
-    open func show(blurredImage: UIImage) {
-        imageButton.setImage(blurredImage, for: .normal)
-        imageButton.alpha = 1
-        imageButton.isUserInteractionEnabled = false
-        indicator.alpha = 1
-        currentState = .loading
-    }
-    
-    open func show(image: UIImage) {
-        self.imageButton.setImage(image, for: .normal)
-        self.imageButton.alpha = 1
-        self.imageButton.isUserInteractionEnabled = true
-        
-        indicator.alpha = 0
-        currentState = .presenting(image)
-    }
-    
-    open func showIndicator() {
-        // We have to do this every time the cell reappears.
-        indicator.startAnimating()
-        indicator.alpha = 1
-        imageButton.alpha = 0
-        imageButton.isUserInteractionEnabled = false
-        currentState = .loading
-    }
-    
-    public func stretchImage() {
-        imageButton.stretchImage()
     }
     
     open override func layoutSubviews() {
@@ -120,6 +93,35 @@ open class LoadableImage: UIView, NotificationCenterObserver {
         imageButton.layer.cornerRadius = imageButton.bounds.height / 2
     }
     
+    /// Will show an image with an indicator to indicate a higher resolution photo is being downloaded
+    open func show(blurredImage: UIImage) {
+        imageButton.setImage(blurredImage, for: .normal)
+        imageButton.alpha = 1
+        imageButton.isUserInteractionEnabled = false
+        indicator.alpha = 1
+        state = .loading
+    }
+    
+    open func show(image: UIImage) {
+        self.imageButton.setImage(image, for: .normal)
+        self.imageButton.alpha = 1
+        self.imageButton.isUserInteractionEnabled = true
+        
+        indicator.alpha = 0
+        state = .presenting(image)
+    }
+    
+    /// Call this when you use this in a TableViewCell
+    open func showIndicator() {
+        indicator.startAnimating()
+        indicator.alpha = 1
+        
+        imageButton.alpha = 0
+        imageButton.isUserInteractionEnabled = false
+        
+        state = .loading
+    }
+    
     public func retrieved(observer: NotificationCenterImageSender) {
         guard identifier == observer.photoIdentifier else { return }
         
@@ -129,14 +131,18 @@ open class LoadableImage: UIView, NotificationCenterObserver {
     @objc private func _tapped() {
         tapped!()
     }
-    
-    private func addIndicator() {
+}
+
+extension LoadableImage: ModelCreator {
+    private func setupIndicator() {
         indicator.fill(toSuperview: self)
         
         indicator.startAnimating()
     }
     
-    private func addImage(isUserInteractionEnabled: Bool) {
+    private func setupImage(isUserInteractionEnabled: Bool) {
+        imageView = imageButton.imageView!
+        
         imageButton.fill(toSuperview: self)
         
         imageButton.imageView!.contentMode = .scaleAspectFit
