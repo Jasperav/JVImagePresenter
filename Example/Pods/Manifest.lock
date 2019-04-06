@@ -1,11 +1,20 @@
 PODS:
-  - JVConstraintEdges (0.3.0):
+  - JVConstraintEdges (0.3.3):
     - JVContentType
-    - JVSizeable
+    - JVDebugProcessorMacros
   - JVContentType (0.1.7)
-  - JVImagePresenter (0.1.0):
+  - JVDebugProcessorMacros (0.1.0)
+  - JVGenericNotificationCenter (0.1.3):
+    - JVJSONCodable
+  - JVImagePresenter (0.2.3):
     - JVConstraintEdges
-  - JVSizeable (0.1.0)
+    - JVLoadableImage
+  - JVJSONCodable (0.1.1)
+  - JVLoadableImage (0.3.1):
+    - JVConstraintEdges
+    - JVGenericNotificationCenter
+    - JVUIButtonExtensions
+  - JVUIButtonExtensions (0.1.1)
 
 DEPENDENCIES:
   - JVConstraintEdges
@@ -15,17 +24,25 @@ SPEC REPOS:
   "https://Jasperav@bitbucket.org/Jasperav/specs.git":
     - JVConstraintEdges
     - JVContentType
-    - JVSizeable
+    - JVDebugProcessorMacros
+    - JVGenericNotificationCenter
+    - JVJSONCodable
+    - JVLoadableImage
+    - JVUIButtonExtensions
 
 EXTERNAL SOURCES:
   JVImagePresenter:
     :path: "../"
 
 SPEC CHECKSUMS:
-  JVConstraintEdges: f1018dfd41c4c3326b785bce1fff3a9193071c94
+  JVConstraintEdges: d8e930af6bdc8cf33a25c46bec3137de6328835f
   JVContentType: bf617302d029baefccde48eb79edc7634fd15f55
-  JVImagePresenter: a377b91d2cc8b17cd63803ab0d5a2dab9325b8b7
-  JVSizeable: 1252e6b1bed411b3fc34f6119d8eaf6803876cd3
+  JVDebugProcessorMacros: 5df41f5660e5d5212c1d4c96fc0caa0800d77311
+  JVGenericNotificationCenter: c66ef91393be834c525b5c3723ac8c021fc8af3b
+  JVImagePresenter: 835e4a337197d762bd127a45ede3a66112525e4b
+  JVJSONCodable: f7802593adaccf981224f606059016b5c7edabca
+  JVLoadableImage: d6ffa3a7114288f4504056578ecab900ba1548bd
+  JVUIButtonExtensions: dd2180c283cc2fde209aeb362f6169a2e0994535
 
 PODFILE CHECKSUM: 00577dbe18cdc97776cee3e1006d0dceb0ad37cf
 

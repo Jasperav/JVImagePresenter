@@ -1,0 +1,6 @@
+framework module JVLoadableImage {
+  umbrella header "JVLoadableImage-umbrella.h"
+
+  export *
+  module * { export * }
+}

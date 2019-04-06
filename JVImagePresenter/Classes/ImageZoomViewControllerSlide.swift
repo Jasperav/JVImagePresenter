@@ -37,7 +37,7 @@ open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDe
 //        nv.pushViewController(self, animated: false)
 //    }
 
-    private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if otherGestureRecognizer == scrollView.panGestureRecognizer {
             if scrollView.contentOffset.y == 0 {
                 return true
@@ -123,11 +123,13 @@ extension ImageZoomViewControllerSlide {
     }
     
     private func setupImageView() {
-        imageView.fillToMiddle(toSuperview: scrollView)
-        
-        imageView.equal(to: scrollView, height: false, width: true)
-        imageView.setWidthAndHeightAreTheSame()
-    
-        imageView.contentMode = .scaleAspectFit
+        imageView.layout {
+            $0.fillToMiddle(toSuperview: scrollView)
+            
+            $0.equal(to: scrollView, height: false, width: true)
+            $0.isSquare = true
+            
+            $0.contentMode = .scaleAspectFit
+        }
     }
 }

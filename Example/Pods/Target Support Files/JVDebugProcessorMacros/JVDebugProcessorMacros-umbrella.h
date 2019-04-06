@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double JVSizeableVersionNumber;
-FOUNDATION_EXPORT const unsigned char JVSizeableVersionString[];
+FOUNDATION_EXPORT double JVDebugProcessorMacrosVersionNumber;
+FOUNDATION_EXPORT const unsigned char JVDebugProcessorMacrosVersionString[];
 

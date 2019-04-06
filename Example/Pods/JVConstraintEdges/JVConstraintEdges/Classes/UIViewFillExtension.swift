@@ -1,28 +1,96 @@
 import UIKit
+import JVDebugProcessorMacros
 
 public extension UIView {
     
-    func setContentHugging(_ to: Float) {
-        setContentHuggingPriority(UILayoutPriority(rawValue: to), for: .horizontal)
-        setContentHuggingPriority(UILayoutPriority(rawValue: to), for: .vertical)
+    func layout(from: (UIView) -> ()) {
+        from(self)
+    }
+
+    var contentHugging: Float {
+        get {
+            Unsupported()
+        } set {
+            setContentHuggingPriority(UILayoutPriority(rawValue: newValue), for: .horizontal)
+            setContentHuggingPriority(UILayoutPriority(rawValue: newValue), for: .vertical)
+        }
     }
     
-    func setContentCompressionResistance(_ to: Float) {
-        setContentCompressionResistancePriority(UILayoutPriority(rawValue: to), for: .horizontal)
-        setContentCompressionResistancePriority(UILayoutPriority(rawValue: to), for: .vertical)
+    var contentCompression: Float {
+        get {
+            Unsupported()
+        } set {
+            setContentCompressionResistancePriority(UILayoutPriority(rawValue: newValue), for: .horizontal)
+            setContentCompressionResistancePriority(UILayoutPriority(rawValue: newValue), for: .vertical)
+        }
     }
     
-    func setContentHuggingAndCompressionResistance(_ to: Float) {
-        setContentHugging(to)
-        setContentCompressionResistance(to)
+    var contentHuggingAndCompressionResistance: Float {
+        get {
+            Unsupported()
+        } set {
+            contentHugging = newValue
+            contentCompression = newValue
+        }
     }
     
-    func createLeadingConstraintToTrailing(toRightView: UIView, constant: CGFloat? = nil, multiplier: CGFloat? = nil) {
+    var isSquare: Bool {
+        get {
+            Unsupported()
+        } set {
+            assert(newValue)
+            
+            heightAnchor.constraint(equalTo: widthAnchor).isActive = true
+        }
+    }
+    
+    var widthConstant: CGFloat {
+        get {
+            Unsupported()
+        } set {
+            widthAnchor.constraint(equalToConstant: newValue).isActive = true
+        }
+    }
+    
+    var heightConstant: CGFloat {
+        get {
+            Unsupported()
+        } set {
+            heightAnchor.constraint(equalToConstant: newValue).isActive = true
+        }
+    }
+    
+    var equalToCenterY: UIView {
+        get {
+            Unsupported()
+        } set {
+            centerYAnchor.constraint(equalTo: newValue.centerYAnchor).isActive = true
+        }
+    }
+    
+    var equalToCenterX: UIView {
+        get {
+            Unsupported()
+        } set {
+            centerXAnchor.constraint(equalTo: newValue.centerXAnchor).isActive = true
+        }
+    }
+    
+    var equalsSizeOf: UIView {
+        get {
+            Unsupported()
+        } set {
+            heightAnchor.constraint(equalTo: newValue.heightAnchor).isActive = true
+            widthAnchor.constraint(equalTo: newValue.widthAnchor).isActive = true
+        }
+    }
+
+    func createLeadingConstraint(toRightView: UIView, constant: CGFloat? = nil, multiplier: CGFloat? = nil) {
         NSLayoutConstraint(item: self, attribute: .leading, relatedBy: .equal, toItem: toRightView, attribute: .trailing, multiplier: multiplier ?? 1, constant: constant ?? 0).isActive = true
     }
     
-    func createTopConstraintToBottom(toBottomOfView: UIView, constant: CGFloat? = nil, multiplier: CGFloat? = nil) {
-        NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: toBottomOfView, attribute: .bottom, multiplier: multiplier ?? 1, constant: constant ?? 0).isActive = true
+    func createTopConstraint(toBottomView: UIView, constant: CGFloat? = nil, multiplier: CGFloat? = nil) {
+        NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: toBottomView, attribute: .bottom, multiplier: multiplier ?? 1, constant: constant ?? 0).isActive = true
     }
     
     func fillToMiddleWithSameHeightAndWidth(toView: UIView, addToSuperView: Bool = true, toSafeMargins: Bool = false) {
@@ -222,6 +290,7 @@ public extension UIView {
     }
     
     func addAsSubview(to: UIView) {
+        assert(superview == nil)
         to.addSubview(self)
         
         translatesAutoresizingMaskIntoConstraints = false
@@ -325,30 +394,5 @@ public extension UIView {
         NSLayoutConstraint.activate(constraints)
         
         return constraints
-    }
-    
-    func setWidthAndHeightAreTheSame() {
-        heightAnchor.constraint(equalTo: widthAnchor).isActive = true
-    }
-    
-    func setSameCenterY(view: UIView) {
-        centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-    }
-    
-    func setSameCenterX(view: UIView) {
-        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    }
-    
-    func setWidth(_ constant: CGFloat) {
-        widthAnchor.constraint(equalToConstant: constant).isActive = true
-    }
-    
-    func setHeight(_ constant: CGFloat) {
-        heightAnchor.constraint(equalToConstant: constant).isActive = true
-    }
-    
-    func setSameWidthAndHeight(toView: UIView) {
-        heightAnchor.constraint(equalTo: toView.heightAnchor).isActive = true
-        widthAnchor.constraint(equalTo: toView.widthAnchor).isActive = true
     }
 }

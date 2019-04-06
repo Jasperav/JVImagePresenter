@@ -1,0 +1,6 @@
+framework module JVJSONCodable {
+  umbrella header "JVJSONCodable-umbrella.h"
+
+  export *
+  module * { export * }
+}

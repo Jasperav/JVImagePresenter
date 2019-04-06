@@ -20,7 +20,7 @@
 		7C560FB79EED67394B87974F /* Pods_JVImagePresenter_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JVImagePresenter_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CEE6759D62A9F27BF0DABD3 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		9681E5B94085CA9C1F93EF9E /* Pods-JVImagePresenter_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JVImagePresenter_Tests.release.xcconfig"; path = "Target Support Files/Pods-JVImagePresenter_Tests/Pods-JVImagePresenter_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		F9D6B6AF6F2B5E03DC92FC84 /* JVImagePresenter.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = JVImagePresenter.podspec; path = ../JVImagePresenter.podspec; sourceTree = "<group>"; };
+		F9D6B6AF6F2B5E03DC92FC84 /* JVImagePresenter.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = JVImagePresenter.podspec; path = ../JVImagePresenter.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +143,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -178,8 +179,12 @@
 				"${PODS_ROOT}/Target Support Files/Pods-JVImagePresenter_Tests/Pods-JVImagePresenter_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/JVConstraintEdges/JVConstraintEdges.framework",
 				"${BUILT_PRODUCTS_DIR}/JVContentType/JVContentType.framework",
+				"${BUILT_PRODUCTS_DIR}/JVDebugProcessorMacros/JVDebugProcessorMacros.framework",
+				"${BUILT_PRODUCTS_DIR}/JVGenericNotificationCenter/JVGenericNotificationCenter.framework",
 				"${BUILT_PRODUCTS_DIR}/JVImagePresenter/JVImagePresenter.framework",
-				"${BUILT_PRODUCTS_DIR}/JVSizeable/JVSizeable.framework",
+				"${BUILT_PRODUCTS_DIR}/JVJSONCodable/JVJSONCodable.framework",
+				"${BUILT_PRODUCTS_DIR}/JVLoadableImage/JVLoadableImage.framework",
+				"${BUILT_PRODUCTS_DIR}/JVUIButtonExtensions/JVUIButtonExtensions.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -187,8 +192,12 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVConstraintEdges.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVContentType.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVDebugProcessorMacros.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVGenericNotificationCenter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVImagePresenter.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVSizeable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVJSONCodable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVLoadableImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVUIButtonExtensions.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

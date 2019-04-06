@@ -1,0 +1,6 @@
+framework module JVDebugProcessorMacros {
+  umbrella header "JVDebugProcessorMacros-umbrella.h"
+
+  export *
+  module * { export * }
+}

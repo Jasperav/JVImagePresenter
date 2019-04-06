@@ -1,0 +1,6 @@
+framework module JVUIButtonExtensions {
+  umbrella header "JVUIButtonExtensions-umbrella.h"
+
+  export *
+  module * { export * }
+}

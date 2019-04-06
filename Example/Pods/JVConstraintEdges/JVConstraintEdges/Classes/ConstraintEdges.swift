@@ -1,7 +1,6 @@
 import UIKit
-import JVSizeable
 
-public struct ConstraintEdges: Sizeable, Decodable {
+public struct ConstraintEdges: Decodable {
     
     public static let zero = ConstraintEdges(all: 0)
     
@@ -12,6 +11,14 @@ public struct ConstraintEdges: Sizeable, Decodable {
     public var top: CGFloat?
     public var bottom: CGFloat?
     
+    public var edgeInsets: UIEdgeInsets {
+        return UIEdgeInsets(top: top ?? 0, left: leading ?? 0, bottom: bottom ?? 0, right: trailing ?? 0)
+    }
+    
+    public var inversed: ConstraintEdges {
+        return ConstraintEdges(leading: leading?.inversed(), trailing: trailing?.inversed(), top: top?.inversed(), bottom: bottom?.inversed())
+    }
+    
     public var width: CGFloat {
         return (leading ?? 0) + (trailing ?? 0)
     }
@@ -19,7 +26,7 @@ public struct ConstraintEdges: Sizeable, Decodable {
     public var height: CGFloat {
         return (top ?? 0) + (bottom ?? 0)
     }
-    
+
     public init(leading: CGFloat?, trailing: CGFloat?, top: CGFloat?, bottom: CGFloat?) {
         self.leading = leading
         self.trailing = trailing
@@ -77,10 +84,6 @@ public struct ConstraintEdges: Sizeable, Decodable {
         return ConstraintEdges(all: isTablet ? tablet * 2 : phone)
     }
     
-    public func toEdgeRectInsets() -> UIEdgeInsets {
-        return UIEdgeInsets(top: top ?? 0, left: leading ?? 0, bottom: bottom ?? 0, right: trailing ?? 0)
-    }
-    
     public mutating func minus(edge: UIRectEdge) {
         self = min(edge)
     }
@@ -99,14 +102,6 @@ public struct ConstraintEdges: Sizeable, Decodable {
         }
         
         return ConstraintEdges(leading: leading, trailing: trailing, top: top, bottom: nil)
-    }
-    
-    public mutating func inverse() {
-        self = inversed()
-    }
-    
-    public func inversed() -> ConstraintEdges {
-        return ConstraintEdges(leading: leading?.inversed(), trailing: trailing?.inversed(), top: top?.inversed(), bottom: bottom?.inversed())
     }
     
     public func inverseHeight() -> ConstraintEdges {

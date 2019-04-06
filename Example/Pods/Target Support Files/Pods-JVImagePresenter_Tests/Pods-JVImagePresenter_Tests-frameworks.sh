@@ -155,14 +155,22 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/JVConstraintEdges/JVConstraintEdges.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/JVContentType/JVContentType.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/JVDebugProcessorMacros/JVDebugProcessorMacros.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/JVGenericNotificationCenter/JVGenericNotificationCenter.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/JVImagePresenter/JVImagePresenter.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/JVSizeable/JVSizeable.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/JVJSONCodable/JVJSONCodable.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/JVLoadableImage/JVLoadableImage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/JVUIButtonExtensions/JVUIButtonExtensions.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/JVConstraintEdges/JVConstraintEdges.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/JVContentType/JVContentType.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/JVDebugProcessorMacros/JVDebugProcessorMacros.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/JVGenericNotificationCenter/JVGenericNotificationCenter.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/JVImagePresenter/JVImagePresenter.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/JVSizeable/JVSizeable.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/JVJSONCodable/JVJSONCodable.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/JVLoadableImage/JVLoadableImage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/JVUIButtonExtensions/JVUIButtonExtensions.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
