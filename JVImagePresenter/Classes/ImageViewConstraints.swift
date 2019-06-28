@@ -13,7 +13,7 @@ public class ImageViewConstraints: UIImageView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError()
     }
     
     func fill(to: UIView) {

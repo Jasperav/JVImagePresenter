@@ -4,17 +4,27 @@ import JVLoadableImage
 
 open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate {
     
-    public let imageView: LoadableImage
+    public let imageView: LoadableMedia
     
     private let scrollView = UIScrollView()
     private var doubleTapGestureRecognizer: UITapGestureRecognizer!
     private var panGestureRecognizer: UIPanGestureRecognizer!
     private var singleTapGestureRecognizer: UITapGestureRecognizer!
+    private var actionButton: UIBarButtonItem!
     
     public init() {
-        imageView = LoadableImage(rounded: false, registerNotificationCenter: true, isUserInteractionEnabled: false, stretched: true)
+        imageView = LoadableMedia(rounded: false, registerNotificationCenter: true, isUserInteractionEnabled: false, stretched: true)
         
         super.init(nibName: nil, bundle: nil)
+        
+        actionButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
+        actionButton.isEnabled = false
+        
+        navigationItem.rightBarButtonItem = actionButton
+        
+        imageView.presentedHighResolutionImage = { [weak self] in
+            self?.actionButton.isEnabled = true
+        }
         
         setupPanGesture()
         setupSingleTapGesture()
@@ -22,11 +32,15 @@ open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDe
         setupScrollView()
         setupImageView()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
     }
     
     public required init?(coder aDecoder: NSCoder) {
         fatalError()
+    }
+    
+    @objc private func share() {
+        present(UIActivityViewController(activityItems: [NSLocalizedString("Share image", comment: ""), imageView.imageView.image!], applicationActivities: nil), animated: true, completion: nil)
     }
     
     // Bottom to top animation, currently not used. Just use the standard animation.
@@ -42,7 +56,7 @@ open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDe
     //        nv.pushViewController(self, animated: false)
     //    }
     
-    private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if otherGestureRecognizer == scrollView.panGestureRecognizer {
             if scrollView.contentOffset.y == 0 {
                 return true
@@ -118,7 +132,8 @@ extension ImageZoomViewControllerSlide {
     }
     
     private func setupScrollView() {
-        scrollView.fill(toSuperview: view)
+        scrollView.layout(in: view)
+        
         scrollView.minimumZoomScale = 1
         scrollView.maximumZoomScale = 4
         scrollView.delegate = self
@@ -126,10 +141,10 @@ extension ImageZoomViewControllerSlide {
     }
     
     private func setupImageView() {
-        imageView.fillToMiddle(toSuperview: scrollView)
+        imageView.layoutInMiddle(inView: scrollView)
         
-        imageView.equal(to: scrollView, height: false, width: true)
-        imageView.isSquare = true
+        imageView.layoutSquare()
+        imageView.layoutEqualWidth(view: scrollView)
         
         imageView.contentMode = .scaleAspectFit
     }

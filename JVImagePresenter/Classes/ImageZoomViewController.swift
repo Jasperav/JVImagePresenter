@@ -31,10 +31,10 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didSingleTapWith(gestureRecognizer:)))
         view.addGestureRecognizer(singleTapGestureRecognizer)
         
-        scrollView.fill(toSuperview: view)
+        scrollView.layout(in: view)
         imageView.fill(to: scrollView)
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         // Very high else if a small image will be presented,
         // it glitches
@@ -51,10 +51,10 @@ open class ImageZoomViewController: UIViewController, UIGestureRecognizerDelegat
         
         scrollView.contentInsetAdjustmentBehavior = .never
         
-        imageView.contentHugging = 251
+        imageView.layout(contentHugging: 251)
     }
     
-    private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if otherGestureRecognizer == scrollView.panGestureRecognizer {
             if scrollView.contentOffset.y == 0 {
                 return true
