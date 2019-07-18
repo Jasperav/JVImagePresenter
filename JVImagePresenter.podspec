@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'JVImagePresenter'
-  s.version          = '0.2.7'
+  s.version          = '0.2.8'
   s.summary          = 'A short description of JVImagePresenter.'
 
   s.description      = <<-DESC
@@ -19,4 +19,5 @@ TODO: Add long description of the pod here.
   
 s.dependency 'JVConstraintEdges'
 s.dependency 'JVLoadableImage'
+s.dependency 'JVUIAlertControllerExtensions'
 end

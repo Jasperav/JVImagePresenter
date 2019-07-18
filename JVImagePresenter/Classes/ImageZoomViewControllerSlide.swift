@@ -4,16 +4,17 @@ import JVLoadableImage
 
 open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate {
     
-    public let imageView: LoadableMedia
+    public let imageView = LoadableMedia(rounded: false, registerNotificationCenter: true, isUserInteractionEnabled: false, stretched: true)
     
     private let scrollView = UIScrollView()
     private var doubleTapGestureRecognizer: UITapGestureRecognizer!
     private var panGestureRecognizer: UIPanGestureRecognizer!
     private var singleTapGestureRecognizer: UITapGestureRecognizer!
     private var actionButton: UIBarButtonItem!
+    private let changed: ((UIImage) -> ())?
     
-    public init() {
-        imageView = LoadableMedia(rounded: false, registerNotificationCenter: true, isUserInteractionEnabled: false, stretched: true)
+    public init(changed: ((UIImage) -> ())? = nil) {
+        self.changed = changed
         
         super.init(nibName: nil, bundle: nil)
         
@@ -32,11 +33,19 @@ open class ImageZoomViewControllerSlide: UIViewController, UIGestureRecognizerDe
         setupScrollView()
         setupImageView()
         
+        if changed != nil {
+            navigationItem.rightBarButtonItems! = [actionButton, UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(changeImage))]
+        }
+        
         view.backgroundColor = .systemBackground
     }
     
     public required init?(coder aDecoder: NSCoder) {
         fatalError()
+    }
+    
+    @objc private func changeImage() {
+        
     }
     
     @objc private func share() {
